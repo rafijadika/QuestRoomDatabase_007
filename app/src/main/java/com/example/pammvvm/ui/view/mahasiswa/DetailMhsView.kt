@@ -38,7 +38,17 @@ fun DetailMhsView(
                     contentDescription = "Edit Mahasiswa")
             }
         }){
-           )
+            innerPadding ->
+        val detailUiState by viewModel.detailUiState.collectAsState()
+
+        BodyDetailMhs(
+            modifier = Modifier.padding(innerPadding),
+            detailUiState = detailUiState,
+            onDeleteClick = {
+                viewModel.deteleMhs()
+                onDeleteClick()
+            }
+        )
     }
 }
 
