@@ -1,0 +1,7 @@
+menambah detail mahasiswa ![Screenshot_20241217_155040](https://github.com/user-attachments/assets/0e9f5fcc-de31-468b-85cb-031fdb6c2f13)
+inputan detail mahasiswa ![Screenshot_20241217_154355](https://github.com/user-attachments/assets/f13fdbfb-9b3e-445b-afb4-df7c72c56352)
+hasil inputan detail mahasiswa ![Screenshot_20241217_154509](https://github.com/user-attachments/assets/af9c2894-3b61-4127-a6c7-8ac4ec68f67b)
+detail hasil input ![Screenshot_20241217_154810](https://github.com/user-attachments/assets/e071dd26-57ca-42ca-8f06-3e9795eaf02d)
+inputan detail mahasiswa yang tidak valid ![Screenshot_20241217_154735](https://github.com/user-attachments/assets/77afd0f0-760c-4c50-b937-dc63a12cd7e6)
+hapus detail mahasiswa ![Screenshot_20241217_154931](https://github.com/user-attachments/assets/4d18e79b-f081-47e9-9a1a-a808c1a7bbcd)
+hasil setelah di hapus ![Screenshot_20241217_155013](https://github.com/user-attachments/assets/47f63a81-b793-4278-a92a-3423ab26eb8a)
