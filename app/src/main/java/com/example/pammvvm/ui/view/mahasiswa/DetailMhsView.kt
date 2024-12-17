@@ -1,5 +1,6 @@
 package com.example.pammvvm.ui.view.mahasiswa
 
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,8 +22,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,14 +40,15 @@ import com.example.pammvvm.ui.viewmodel.DetailUiState
 import com.example.pammvvm.ui.viewmodel.PenyediaViewModel
 import com.example.pammvvm.ui.viewmodel.toMahasiswaEntity
 
+
 @Composable
 fun DetailMhsView(
     modifier: Modifier = Modifier,
     viewModel: DetailMhsViewModel = viewModel(factory = PenyediaViewModel.Factory),
-    onBack: () -> Unit = {},
-    onEditClick: (String) -> Unit = {},
-    onDeleteClick: () -> Unit = {}
-){
+    onBack: () -> Unit = { },
+    onEditClick: (String) -> Unit ={ },
+    onDeleteClick: () -> Unit ={ } )
+{
     Scaffold (topBar = {
         TopAppBar(
             judul = "Detail Mahasiswa",
@@ -70,12 +74,13 @@ fun DetailMhsView(
             modifier = Modifier.padding(innerPadding),
             detailUiState = detailUiState,
             onDeleteClick = {
-                viewModel.deteleMhs()
+                viewModel.deleteMhs()
                 onDeleteClick()
             }
         )
     }
 }
+
 
 @Composable
 fun BodyDetailMhs(
@@ -86,24 +91,24 @@ fun BodyDetailMhs(
     var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
     when{
         detailUiState.isLoading -> {
-            Box(
+            Box (
                 modifier = modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ){
-                //add loading
+                //menampilkan indikator loading
                 CircularProgressIndicator()
             }
         }
 
         detailUiState.isUiEventNotEmpty -> {
-            Column (modifier = modifier.fillMaxWidth().padding(16.dp))
+            Column(modifier = modifier.fillMaxWidth().padding(16.dp))
             {
                 ItemDetailMhs(
                     mahasiswa = detailUiState.detailUiEvent.toMahasiswaEntity(),
                     modifier = Modifier
                 )
                 Spacer(modifier =  Modifier.padding(8.dp))
-                Button(onClick = {
+                Button (onClick = {
                     deleteConfirmationRequired = true
                 }, modifier = Modifier.fillMaxWidth())
                 {
@@ -124,7 +129,7 @@ fun BodyDetailMhs(
             }
         }
 
-        detailUiState.isUiEventEmpty -> {
+        detailUiState.isUIEventEmpty -> {
             Box(
                 modifier = modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
@@ -143,7 +148,7 @@ fun ItemDetailMhs(
     modifier: Modifier = Modifier,
     mahasiswa: Mahasiswa
 ){
-    Card(
+    Card (
         modifier = modifier.fillMaxWidth().padding(top = 20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -158,7 +163,7 @@ fun ItemDetailMhs(
             Spacer(modifier =Modifier.padding(5.dp))
             ComponentDetailMhs(judul = "Alamat", isinya = mahasiswa.alamat)
             Spacer(modifier =Modifier.padding(5.dp))
-            ComponentDetailMhs(judul = "Jenis Kelamin", isinya = mahasiswa.jeniskelamin)
+            ComponentDetailMhs(judul = "Jenis Kelamin", isinya = mahasiswa.jenisKelamin)
             Spacer(modifier =Modifier.padding(5.dp))
             ComponentDetailMhs(judul = "Kelas", isinya = mahasiswa.kelas)
             Spacer(modifier =Modifier.padding(5.dp))
@@ -202,7 +207,7 @@ private fun DeleteConfirmationDialog(
         text = { Text("Apakah anda yakin ingin menghapus data?")},
         modifier = modifier,
         dismissButton = {
-            TextButton(onClick = onDeleteCancel) {
+            TextButton (onClick = onDeleteCancel) {
                 Text(text = "Cancel")
             }
         },
@@ -213,12 +218,3 @@ private fun DeleteConfirmationDialog(
         }
     )
 }
-
-
-
-
-
-
-
-
-

@@ -3,7 +3,9 @@ package com.example.pammvvm.ui.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
+import com.example.pammvvm.data.entity.Mahasiswa
+import com.example.pammvvm.repository.RepositoryMhs
+import com.example.pammvvm.ui.navigation.DestinasiDetail
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -12,11 +14,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 class DetailMhsViewModel (
     savedStateHandle: SavedStateHandle,
-    private val repositoryMhs: RepositoriMhs,
-) : ViewModel(){
+    private val repositoryMhs: RepositoryMhs,
+): ViewModel()
+{
     private val _nim: String = checkNotNull(savedStateHandle[DestinasiDetail.NIM])
 
     val detailUiState: StateFlow<DetailUiState> = repositoryMhs.getMhs(_nim)
@@ -24,7 +28,7 @@ class DetailMhsViewModel (
         .map {
             DetailUiState(
                 detailUiEvent = it.toDetailUiEvent(),
-                isLoading = false
+                isLoading = false,
             )
         }
         .onStart {
@@ -43,12 +47,10 @@ class DetailMhsViewModel (
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(2000),
-            initialValue = DetailUiState (
-                isLoading = true,
-            ),
+            initialValue =
+            DetailUiState(isLoading = true)
         )
-
-    fun deteleMhs() {
+    fun deleteMhs(){
         detailUiState.value.detailUiEvent.toMahasiswaEntity().let {
             viewModelScope.launch {
                 repositoryMhs.deleteMhs(it)
@@ -62,20 +64,23 @@ data class DetailUiState(
     val isLoading: Boolean = false,
     val isError: Boolean = false,
     val errorMessage: String = ""
-) {
-    val isUiEventEmpty: Boolean
+)
+{
+    val isUIEventEmpty: Boolean
         get() = detailUiEvent == MahasiswaEvent()
 
     val isUiEventNotEmpty: Boolean
         get() = detailUiEvent != MahasiswaEvent()
 }
 
-// store data from entity to ui
-fun Mahasiswa.toDetailUiEvent() : MahasiswaEvent {
+//DATA CLASS untuk menampung data yang akan ditampilkan di UI
+
+//Memindahkan data dari entity ke UI
+fun Mahasiswa.toDetailUiEvent(): MahasiswaEvent{
     return MahasiswaEvent(
         nim = nim,
         nama = nama,
-        jeniskelamin = jeniskelamin,
+        jeniskelamin = jenisKelamin,
         alamat = alamat,
         kelas = kelas,
         angkatan = angkatan

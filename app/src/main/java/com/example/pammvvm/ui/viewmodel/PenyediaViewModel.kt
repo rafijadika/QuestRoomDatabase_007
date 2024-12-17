@@ -6,37 +6,34 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.pammvvm.KrsApp
-import com.tugas.data.KrsApp
 
-object PenyediaViewModel {
+
+object PenyediaViewModel{
     val Factory = viewModelFactory {
         initializer {
             MahasiswaViewModel(
-                krsApp().containerApp.repositoriMhs
+                krsApp().containerApp.RepositoryMhs
             )
         }
-
         initializer {
             HomeMhsViewModel(
-                krsApp().containerApp.repositoriMhs
+                krsApp().containerApp.RepositoryMhs
             )
         }
-
-        initializer {
+        initializer{
             DetailMhsViewModel(
                 createSavedStateHandle(),
-                krsApp().containerApp.repositoriMhs
+                krsApp().containerApp.RepositoryMhs
             )
         }
-
-        initializer {
+        initializer{
             UpdateMhsViewModel(
                 createSavedStateHandle(),
-                krsApp().containerApp.repositoriMhs
+                krsApp().containerApp.RepositoryMhs
             )
         }
     }
 }
 
-fun CreationExtras.krsApp() : KrsApp =
-    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as KrsApp)
+fun CreationExtras.krsApp(): KrsApp =
+    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]as KrsApp)

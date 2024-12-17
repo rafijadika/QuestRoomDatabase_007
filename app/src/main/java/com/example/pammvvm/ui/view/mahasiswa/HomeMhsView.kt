@@ -8,20 +8,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -31,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pammvvm.data.entity.Mahasiswa
+import com.example.pammvvm.ui.costumwidget.TopAppBar
 import com.example.pammvvm.ui.viewmodel.HomeMhsViewModel
 import com.example.pammvvm.ui.viewmodel.HomeUiState
 import com.example.pammvvm.ui.viewmodel.PenyediaViewModel
@@ -41,7 +47,7 @@ fun HomeMhsView(
     viewModel: HomeMhsViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onAddMhs: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
-    modifier: Modifier = Modifier )
+    modifier: Modifier = Modifier)
 {
     Scaffold (topBar = {
         TopAppBar(
@@ -62,7 +68,7 @@ fun HomeMhsView(
             }
         }){
             innerPadding ->
-        val homeUiState by viewModel.homeUiState.collectAsState()
+        val homeUiState by viewModel.homeUIState.collectAsState()
 
         BodyHomeMhsView(
             homeUiState = homeUiState,
@@ -137,7 +143,8 @@ fun ListMahasiswa(
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit = { }
 ){
-    LazyColumn (modifier = Modifier){
+    LazyColumn (modifier = modifier)
+    {
         items(
             items = listMhs,
             itemContent = { mhs ->
@@ -149,7 +156,6 @@ fun ListMahasiswa(
         )
     }
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardMhs(
@@ -166,7 +172,7 @@ fun CardMhs(
         Column(modifier = Modifier.padding(12.dp)
         )
         {
-            Row (modifier = Modifier.fillMaxWidth(),
+            Row(modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically)
             {
                 Icon(imageVector = Icons.Filled.Person, contentDescription = "")
@@ -201,4 +207,3 @@ fun CardMhs(
         }
     }
 }
-
